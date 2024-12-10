@@ -21,6 +21,7 @@ public class OncallSerivce {
 
         List<Date> dates = setUpDates(startDate, calendar);
         List<Schedule> schedules = setUpSchedules(calendar, dates, holidayWorkersQueue, weekdayWorkersQueue);
+        changeDuplicateWorkers(calendar, schedules);
 
         return schedules;
     }
@@ -55,5 +56,13 @@ public class OncallSerivce {
             weekdayWorkersQueue.remove(element);
         }
         return schedules;
+    }
+
+    private static void changeDuplicateWorkers(Calendar calendar, List<Schedule> schedules) {
+        for (int i = 0; i < calendar.getMaxDay() - 1; i++) {
+            if (schedules.get(i).getName().equals(schedules.get(i + 1).getName())) {
+                Collections.swap(schedules, i + 1, i + 2);
+            }
+        }
     }
 }
