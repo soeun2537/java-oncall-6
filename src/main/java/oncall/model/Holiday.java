@@ -6,7 +6,7 @@ public enum Holiday {
     CHILDREN_DAY(5, 5),
     MEMORIAL_DAY(6, 6),
     LIBERATION_DAY(8, 15),
-    NATIONAL_FOUNDAtiON_DAY(10,3),
+    NATIONAL_FOUNDAtiON_DAY(10, 3),
     HANGUL_DAY(10, 9),
     CHRISTMAS(12, 25),
     ;
