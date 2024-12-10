@@ -43,20 +43,20 @@ public class OncallSerivce {
         for (int i = 1; i <= calendar.getMaxDay(); i++) {
             Date date = dates.get(i - 1);
             if (Holiday.isHoliday(date.getMonth(), date.getDay()) || WeekOfDay.isHoliday(date.getDayOfWeek())) {
-                String element = holidayWorkersQueue.element();
-                Schedule schedule = Schedule.from(date, element);
-                schedules.add(schedule);
-                holidayWorkersQueue.add(element);
-                holidayWorkersQueue.remove(element);
+                handleWorkers(holidayWorkersQueue, date, schedules);
                 continue;
             }
-            String element = weekdayWorkersQueue.element();
-            Schedule schedule = Schedule.from(date, element);
-            schedules.add(schedule);
-            weekdayWorkersQueue.add(element);
-            weekdayWorkersQueue.remove(element);
+            handleWorkers(weekdayWorkersQueue, date, schedules);
         }
         return schedules;
+    }
+
+    private static void handleWorkers(Queue<String> workersQueue, Date date, List<Schedule> schedules) {
+        String element = workersQueue.element();
+        Schedule schedule = Schedule.from(date, element);
+        schedules.add(schedule);
+        workersQueue.add(element);
+        workersQueue.remove(element);
     }
 
     private static void changeDuplicateWorkers(Calendar calendar, List<Schedule> schedules) {
