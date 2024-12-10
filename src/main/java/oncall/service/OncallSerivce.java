@@ -20,6 +20,7 @@ public class OncallSerivce {
         Calendar calendar = Calendar.findCalendar(startDate.getMonth());
 
         List<Date> dates = setUpDates(startDate, calendar);
+        List<Schedule> schedules = setUpSchedules(calendar, dates, holidayWorkersQueue, weekdayWorkersQueue);
 
         return schedules;
     }
@@ -32,5 +33,27 @@ public class OncallSerivce {
             dates.add(date);
         }
         return dates;
+    }
+
+    private static List<Schedule> setUpSchedules(Calendar calendar, List<Date> dates,
+                                                 Queue<String> holidayWorkersQueue, Queue<String> weekdayWorkersQueue) {
+        List<Schedule> schedules = new ArrayList<>();
+        for (int i = 1; i <= calendar.getMaxDay(); i++) {
+            Date date = dates.get(i - 1);
+            if (Holiday.isHoliday(date.getMonth(), date.getDay()) || WeekOfDay.isHoliday(date.getDayOfWeek())) {
+                String element = holidayWorkersQueue.element();
+                Schedule schedule = Schedule.from(date, element);
+                schedules.add(schedule);
+                holidayWorkersQueue.add(element);
+                holidayWorkersQueue.remove(element);
+                continue;
+            }
+            String element = weekdayWorkersQueue.element();
+            Schedule schedule = Schedule.from(date, element);
+            schedules.add(schedule);
+            weekdayWorkersQueue.add(element);
+            weekdayWorkersQueue.remove(element);
+        }
+        return schedules;
     }
 }
