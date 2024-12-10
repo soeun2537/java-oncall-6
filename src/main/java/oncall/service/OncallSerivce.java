@@ -22,6 +22,7 @@ public class OncallSerivce {
         List<Date> dates = setUpDates(startDate, calendar);
         List<Schedule> schedules = setUpSchedules(calendar, dates, holidayWorkersQueue, weekdayWorkersQueue);
         changeDuplicateWorkers(calendar, schedules);
+        addHolidayMark(dates);
 
         return schedules;
     }
@@ -62,6 +63,14 @@ public class OncallSerivce {
         for (int i = 0; i < calendar.getMaxDay() - 1; i++) {
             if (schedules.get(i).getName().equals(schedules.get(i + 1).getName())) {
                 Collections.swap(schedules, i + 1, i + 2);
+            }
+        }
+    }
+
+    private static void addHolidayMark(List<Date> dates) {
+        for (Date date : dates) {
+            if (Holiday.isHoliday(date.getMonth(), date.getDay()) && !WeekOfDay.isHoliday(date.getDayOfWeek())) {
+                date.addHolidayMark();
             }
         }
     }
