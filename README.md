@@ -99,7 +99,7 @@ IllegalArgumentException을 발생시키고, 에러 메시지를를 출력한 �
 - [x] java-oncall-6 비공개 저장소를 생성한다.
 - [x] 기능을 구현하기 전에 README.md에 구현할 기능 목록을 정리해 추가한다.
 - [x] Git의 커밋은 README.md에 정리된 기능 목록 단위로 나눈다. (AngularJS Git Commit Message Conventions 참고)
-- [ ] docs/how-to-solve.md에서 미션 해결 전략 문항에 답변을 필수로 작성한다.
+- [x] docs/how-to-solve.md에서 미션 해결 전략 문항에 답변을 필수로 작성한다.
 
 ### 기능 요구 사항
 
